@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "src\Web\Web.csproj", "{DE4C4716-01B9-4140-B847-3AD476FCA713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "src\Core\Core.csproj", "{AAA4E49D-ADB5-4B55-A703-CC2320EE3EB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{A86D49F6-3431-4A3D-84D3-45E4138CD638}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "src\UnitTests\UnitTests.csproj", "{8E19BB46-5216-4403-BBFC-5F2B973E86ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "src\IntegrationTests\IntegrationTests.csproj", "{B67201A0-25AE-4B4D-A12B-C3BDF39710B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B17CCD90-DAA1-408E-A875-E84A71A3A8EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{140F729F-3421-4683-A18E-A042B3B031E0}"
+	ProjectSection(SolutionItems) = preProject
+		.bowerrc = .bowerrc
+		bower.json = bower.json
+		BowerTarget.cmd = BowerTarget.cmd
+		build.cmd = build.cmd
+		build.xml = build.xml
+		clean.cmd = clean.cmd
+		deploy.cmd = deploy.cmd
+		doc.cmd = doc.cmd
+		gulp-new.cmd = gulp-new.cmd
+		gulp-new.config.js = gulp-new.config.js
+		gulp.config.js = gulp.config.js
+		gulpfile-new.js = gulpfile-new.js
+		gulpfile.js = gulpfile.js
+		karma.conf.js = karma.conf.js
+		package.json = package.json
+		pull_libs.cmd = pull_libs.cmd
+		run_ant.cmd = run_ant.cmd
+		sonar-project.properties = sonar-project.properties
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE4C4716-01B9-4140-B847-3AD476FCA713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE4C4716-01B9-4140-B847-3AD476FCA713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE4C4716-01B9-4140-B847-3AD476FCA713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE4C4716-01B9-4140-B847-3AD476FCA713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAA4E49D-ADB5-4B55-A703-CC2320EE3EB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA4E49D-ADB5-4B55-A703-CC2320EE3EB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA4E49D-ADB5-4B55-A703-CC2320EE3EB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA4E49D-ADB5-4B55-A703-CC2320EE3EB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A86D49F6-3431-4A3D-84D3-45E4138CD638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A86D49F6-3431-4A3D-84D3-45E4138CD638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A86D49F6-3431-4A3D-84D3-45E4138CD638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A86D49F6-3431-4A3D-84D3-45E4138CD638}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E19BB46-5216-4403-BBFC-5F2B973E86ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E19BB46-5216-4403-BBFC-5F2B973E86ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E19BB46-5216-4403-BBFC-5F2B973E86ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E19BB46-5216-4403-BBFC-5F2B973E86ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B67201A0-25AE-4B4D-A12B-C3BDF39710B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B67201A0-25AE-4B4D-A12B-C3BDF39710B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B67201A0-25AE-4B4D-A12B-C3BDF39710B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B67201A0-25AE-4B4D-A12B-C3BDF39710B7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8E19BB46-5216-4403-BBFC-5F2B973E86ED} = {B17CCD90-DAA1-408E-A875-E84A71A3A8EB}
+		{B67201A0-25AE-4B4D-A12B-C3BDF39710B7} = {B17CCD90-DAA1-408E-A875-E84A71A3A8EB}
+	EndGlobalSection
+EndGlobal

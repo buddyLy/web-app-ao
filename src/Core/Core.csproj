@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AAA4E49D-ADB5-4B55-A703-CC2320EE3EB2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Walmart.Assortment.AssortmentOptimizationSystem.Core</RootNamespace>
+    <AssemblyName>Walmart.Assortment.AssortmentOptimizationSystem.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>5</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain\Extensions\AssortmentAnalysisExtensions.cs" />
+    <Compile Include="Domain\Extensions\StringExtensions.cs" />
+    <Compile Include="Domain\Model\CapabilityParameter.cs" />
+    <Compile Include="Domain\Model\CapabilityParameterTypes.cs" />
+    <Compile Include="Domain\Model\CapabilityParameterValue.cs" />
+    <Compile Include="Domain\Model\CapabilityStatus.cs" />
+    <Compile Include="Domain\Model\CapabilityType.cs" />
+    <Compile Include="Domain\Model\CapabilityTypeLocalization.cs" />
+    <Compile Include="Domain\Model\CdtAssortmentDescriptionFile.cs" />
+    <Compile Include="Domain\Model\CdtItemMetricsFile.cs" />
+    <Compile Include="Domain\Model\CdtYulesQMatrixFile.cs" />
+    <Compile Include="Domain\Model\CodeType.cs" />
+    <Compile Include="Domain\Model\AssortmentAnalysis.cs" />
+    <Compile Include="Domain\Model\Capability.cs" />
+    <Compile Include="Domain\Model\CapabilityFile.cs" />
+    <Compile Include="Domain\Model\CreateAssortmentRequest.cs" />
+    <Compile Include="Domain\Model\CreateDecisionTreeRequest.cs" />
+    <Compile Include="Domain\Model\CreateLoyaltyReportRequest.cs" />
+    <Compile Include="Domain\Model\CreateStoreClusteringRequest.cs" />
+    <Compile Include="Domain\Model\CreateSubstitutionRequest.cs" />
+    <Compile Include="Domain\Model\DecisionTree.cs" />
+    <Compile Include="Domain\Model\Diagnostic.cs" />
+    <Compile Include="Domain\Model\DiagnosticItemListFile.cs" />
+    <Compile Include="Domain\Model\DiagnosticResultsFile.cs" />
+    <Compile Include="Domain\Model\ItemListFile.cs" />
+    <Compile Include="Domain\Model\Localization.cs" />
+    <Compile Include="Domain\Model\FileType.cs" />
+    <Compile Include="Domain\Model\FileTypeLocalization.cs" />
+    <Compile Include="Domain\Model\LoyaltyItemListFile.cs" />
+    <Compile Include="Domain\Model\LoyaltyMetricsFile.cs" />
+    <Compile Include="Domain\Model\LoyaltyReport.cs" />
+    <Compile Include="Domain\Model\LoyaltyStoreClusteringFile.cs" />
+    <Compile Include="Domain\Model\CapabilityFileTypes.cs" />
+    <Compile Include="Domain\Model\RollupLevel.cs" />
+    <Compile Include="Domain\Model\RollupLevelLocalization.cs" />
+    <Compile Include="Domain\Model\Status.cs" />
+    <Compile Include="Domain\Model\StatusLocalization.cs" />
+    <Compile Include="Domain\Model\StoreClustering.cs" />
+    <Compile Include="Domain\Model\StoreClusteringModelSummaryFile.cs" />
+    <Compile Include="Domain\Model\StoreClusteringReclassifedStores.cs" />
+    <Compile Include="Domain\Model\StoreClusteringStoresFile.cs" />
+    <Compile Include="Domain\Model\Substitution.cs" />
+    <Compile Include="Domain\Model\SubstitutionItemListFile.cs" />
+    <Compile Include="Domain\Model\SubstitutionMetricsFile.cs" />
+    <Compile Include="Domain\Model\TrackedEntity.cs" />
+    <Compile Include="Interfaces\IEntity.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Interfaces\IMessageService.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Messages\DecisionTreeMessage.cs" />
+    <Compile Include="Messages\DiagnosticMessage.cs" />
+    <Compile Include="Messages\LoyaltyMessage.cs" />
+    <Compile Include="Messages\CapabilityMessage.cs" />
+    <Compile Include="Messages\StoreClusteringMessage.cs" />
+    <Compile Include="Messages\SubstitutionMessage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Domain\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\ItemListTemplate.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\ClusteringTemplate.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\LoyaltyClusterTemplate.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\SubstitutionTemplate.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

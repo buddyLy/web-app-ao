@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for ./src/Web/App/AssortmentOptimization/Layout/shell.controller.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../../../prettify.css">
+    <link rel="stylesheet" href="../../../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">./src/Web/App/AssortmentOptimization/Layout/shell.controller.js</span></h1>
+    <h2>
+        Statements: <span class="metric">16.22% <small>(12 / 74)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 27)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">5% <small>(1 / 20)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">16.22% <small>(12 / 74)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../../index.html">All files</a> &#187; <a href="index.html">./src/Web/App/AssortmentOptimization/Layout/</a> &#187; shell.controller.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">﻿(function () {
+    'use strict';
+&nbsp;
+    angular
+        .module('AssortmentOptimization.Layout')
+        .controller('Shell', Shell);
+&nbsp;
+    Shell.$inject = ['$timeout', '$window', 'config', 'logger', '$route', 'routehelper', 'userService', '$scope'];
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function Shell($timeout, $window, config, logger, $route, routehelper, userService, $scope) {</span>
+        /*jshint validthis: true */
+<span class="cstat-no" title="statement not covered" >        var vm = this;</span>
+<span class="cstat-no" title="statement not covered" >        var routes = routehelper.getRoutes();</span>
+<span class="cstat-no" title="statement not covered" >        vm.isCurrent = isCurrent;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        vm.title = 'Walmart ' + config.appTitle;</span>
+<span class="cstat-no" title="statement not covered" >        vm.busyMessage = 'Please wait ...';</span>
+<span class="cstat-no" title="statement not covered" >        vm.currentUser = {};</span>
+<span class="cstat-no" title="statement not covered" >        vm.homeUrl = './#/';</span>
+<span class="cstat-no" title="statement not covered" >        vm.isBusy = true;</span>
+<span class="cstat-no" title="statement not covered" >        vm.showSplash = true;</span>
+<span class="cstat-no" title="statement not covered" >        vm.showSettings = showSettings;</span>
+<span class="cstat-no" title="statement not covered" >        vm.navbarCollapsed = true;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        activate();</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function activate() {</span>
+<span class="cstat-no" title="statement not covered" >            init();</span>
+<span class="cstat-no" title="statement not covered" >            getNavRoutes();</span>
+&nbsp;
+            ////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////
+            //This will be used to call the user once we have a way to retrieve who is logged on
+            ////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////
+            //userService.getCurrentUser().then(function (response) {
+            //    vm.currentUser = response;
+            //});
+&nbsp;
+            //logger.success(config.appTitle + ' loaded!', null);
+<span class="cstat-no" title="statement not covered" >            hideSplash();</span>
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function init() {</span>
+<span class="cstat-no" title="statement not covered" >            $scope.$on('toggleNav', <span class="fstat-no" title="function not covered" >function (event, navOptions) {</span></span>
+<span class="cstat-no" title="statement not covered" >                vm.navbarCollapsed = navOptions.navBarCollapsed;</span>
+<span class="cstat-no" title="statement not covered" >                vm.assortmentName = navOptions.assortmentName;</span>
+<span class="cstat-no" title="statement not covered" >                vm.assortmentId = navOptions.assortmentId;</span>
+<span class="cstat-no" title="statement not covered" >                getSummaryNavRoutes(vm.assortmentId);</span>
+            });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            $scope.$on('toggleCDTNav', <span class="fstat-no" title="function not covered" >function (event, active) {</span></span>
+<span class="cstat-no" title="statement not covered" >                $scope.$emit('toggleRemainingNav', false);</span>
+<span class="cstat-no" title="statement not covered" >                setActiveNavRoutes('CDT', vm.assortmentId, active);</span>
+            });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            $scope.$on('toggleRemainingNav', <span class="fstat-no" title="function not covered" >function (event, active) {</span></span>
+<span class="cstat-no" title="statement not covered" >                setActiveNavRoutes('Remaining', vm.assortmentId, active);</span>
+            });
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function showSettings() {</span>
+<span class="cstat-no" title="statement not covered" >            $window.alert('User Settings coming soon.');</span>
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function getNavRoutes() {</span>
+<span class="cstat-no" title="statement not covered" >            vm.navRoutes = routes.filter(<span class="fstat-no" title="function not covered" >function (r) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (r.settings.level === 'navbar') {</span>
+<span class="cstat-no" title="statement not covered" >                    return r.settings &amp;&amp; r.settings.nav;</span>
+                }
+            }).sort(<span class="fstat-no" title="function not covered" >function (r1, r2) {</span>
+<span class="cstat-no" title="statement not covered" >                return r1.settings.nav - r2.settings.nav;</span>
+            });
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function setActiveNavRoutes(name, id, active) {</span>
+<span class="cstat-no" title="statement not covered" >            vm.navSummaryRoutes = routes.filter(<span class="fstat-no" title="function not covered" >function (r) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (r.settings.level === 'summary') {</span>
+<span class="cstat-no" title="statement not covered" >                    var urlparts = r.originalPath.split('/');</span>
+<span class="cstat-no" title="statement not covered" >                    urlparts[2] = id;</span>
+<span class="cstat-no" title="statement not covered" >                    r.originalPath = '/' + urlparts[1] + '/' + urlparts[2] + '/' + urlparts[3];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    if (urlparts[3] === 'cdt') {</span>
+<span class="cstat-no" title="statement not covered" >                        r.settings.active = active;</span>
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    if (name === 'Remaining') {</span>
+<span class="cstat-no" title="statement not covered" >                        switch (urlparts[3]) {</span>
+                            case 'cdt':
+<span class="cstat-no" title="statement not covered" >                                r.settings.active = active;</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+                            case 'Loyalty':
+<span class="cstat-no" title="statement not covered" >                                r.settings.active = active;</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+                            case 'StoreClustering':
+<span class="cstat-no" title="statement not covered" >                                r.settings.active = active;</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+                            case 'substitution':
+<span class="cstat-no" title="statement not covered" >                                r.settings.active = active;</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+                        }
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    return r.settings &amp;&amp; r.settings.nav;</span>
+                }
+            }).sort(<span class="fstat-no" title="function not covered" >function (r1, r2) {</span>
+<span class="cstat-no" title="statement not covered" >                return r1.settings.nav - r2.settings.nav;</span>
+            });
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function getSummaryNavRoutes(id) {</span>
+<span class="cstat-no" title="statement not covered" >            vm.navSummaryRoutes = routes.filter(<span class="fstat-no" title="function not covered" >function (r) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (r.settings.level === 'summary') {</span>
+<span class="cstat-no" title="statement not covered" >                    var urlparts = r.originalPath.split('/');</span>
+<span class="cstat-no" title="statement not covered" >                    urlparts[2] = id;</span>
+<span class="cstat-no" title="statement not covered" >                    r.originalPath = '/' + urlparts[1] + '/' + urlparts[2] + '/' + urlparts[3];</span>
+<span class="cstat-no" title="statement not covered" >                    return r.settings &amp;&amp; r.settings.nav;</span>
+                }
+            }).sort(<span class="fstat-no" title="function not covered" >function (r1, r2) {</span>
+<span class="cstat-no" title="statement not covered" >                return r1.settings.nav - r2.settings.nav;</span>
+            });
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function isCurrent(route) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!route.title || !$route.current || !$route.current.title) {</span>
+<span class="cstat-no" title="statement not covered" >                return '';</span>
+            }
+<span class="cstat-no" title="statement not covered" >            var menuName = route.title;</span>
+<span class="cstat-no" title="statement not covered" >            return $route.current.title.substr(0, menuName.length) === menuName ? 'active' : '';</span>
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function hideSplash() {</span>
+            //Force a 1 second delay so we can see the splash.
+<span class="cstat-no" title="statement not covered" >            $timeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                vm.showSplash = false;</span>
+            }, 3000);
+        }
+    }
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Sep 09 2015 15:25:16 GMT-0500 (Central Daylight Time)</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>

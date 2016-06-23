@@ -1,0 +1,6 @@
+{
+  "registry": "http://bower.wal-mart.com:5678",
+  "timeout": 300000,
+  "directory": "src/Web/Scripts",
+  "json": "bower.json"
+}

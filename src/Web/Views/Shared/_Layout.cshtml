@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-ng-app="AssortmentOptimization" ng-strict-di>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AOS</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+
+    <!-- build:css Content/lib.css -->
+    <!-- inject:thirdparty:css -->
+    <link rel="stylesheet" href="~/Scripts/bootstrap-walmart/css/bootstrap.css">
+
+    <link rel="stylesheet" href="~/Scripts/toastr/toastr.css">
+    <!-- endinject -->
+    <!-- endbuild -->
+    <!-- build:css Content/app.css-->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="~/Content/site.css">
+    <link href="~/Scripts/angular-ui-grid/ui-grid.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/spinner.css">
+    <!-- endinject -->
+    @*  <link href="~/Content/sitenew_REDLINES.css" rel="stylesheet" />*@
+    <!-- endbuild -->
+    <!-- build:js Scripts/modernizr.js-->
+    <!-- inject:modernizr:js -->
+    <script src="~/Scripts/modernizr/modernizr.js"></script>
+    <!-- endinject -->
+    <!-- endbuild -->
+</head>
+<body>
+    @RenderBody()
+    <footer class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+        <div class="container-fluid">
+            <p class="navbar-text navbar-right">
+                @string.Format("v{0}", ViewContext.Controller.GetType().Assembly.GetName().Version)
+                &nbsp;
+            </p>
+        </div>
+    </footer>
+    <!-- build:js Scripts/lib.js -->
+    <!-- inject:thirdparty:js -->
+
+    <script src="~/Scripts/jquery/dist/jquery.js"></script>
+    <script src="~/Scripts/bootstrap-walmart/js/bootstrap.js"></script>
+    <script src="~/Scripts/angular/angular.js"></script>
+    <script src="~/App/AssortmentOptimization/app.module.js"></script>
+    <script src="~/Scripts/angular-animate/angular-animate.js"></script>
+    <script src="~/Scripts/angular-messages/angular-messages.js"></script>
+    <script src="~/Scripts/angular-resource/angular-resource.js"></script>
+    <script src="~/Scripts/angular-route/angular-route.js"></script>
+    <script src="~/Scripts/angular-sanitize/angular-sanitize.js"></script>
+    <script src="~/Scripts/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="~/Scripts/extras.angular.plus/ngplus-overlay.js"></script>
+    <script src="~/Scripts/lodash/lodash.js"></script>
+    <script src="~/Scripts/moment/moment.js"></script>
+    <script src="~/Scripts/toastr/toastr.js"></script>
+    <script src="~/Scripts/angular-ui-grid/ui-grid.min.js"></script>
+    <script src="~/Scripts/ng-fileupload/ng-file-upload-shim.min.js"></script>
+    <script src="~/Scripts/ng-fileupload/ng-file-upload-all.min.js"></script>
+    <!-- endinject -->
+    <!-- endbuild -->
+    <!-- build:js Scripts/app.js-->
+    <!-- inject:js -->
+
+    <script src="~/App/AssortmentOptimization/Blocks/Exception/exception.module.js"></script>
+    <script src="~/App/AssortmentOptimization/Blocks/Logger/logger.module.js"></script>
+    <script src="~/App/AssortmentOptimization/Blocks/Router/router.module.js"></script>
+    <script src="~/App/AssortmentOptimization/Main/main.module.js"></script>
+    <script src="~/App/AssortmentOptimization/Home/home.module.js"></script>
+    <script src="~/App/AssortmentOptimization/Layout/layout.module.js"></script>
+    <script src="~/App/AssortmentOptimization/Core/core.module.js"></script>
+    <script src="~/App/AssortmentOptimization/Directives/directives.module.js"></script>
+    <script src="~/App/AssortmentOptimization/Services/services.module.js"></script>
+    <script src="~/App/AssortmentOptimization/widgets/widgets.module.js"></script>
+
+    <script src="~/App/AssortmentOptimization/Blocks/Router/routehelper.js"></script>
+    <script src="~/App/AssortmentOptimization/Blocks/Exception/exception-handler.provider.js"></script>
+    <script src="~/App/AssortmentOptimization/Blocks/Exception/exception.js"></script>
+    <script src="~/App/AssortmentOptimization/Blocks/Logger/logger.js"></script>
+    <script src="~/App/AssortmentOptimization/Core/config.js"></script>
+    <script src="~/App/AssortmentOptimization/Core/Constants.js"></script>
+
+    <script src="~/App/AssortmentOptimization/Home/config.route.js"></script>
+    <script src="~/App/AssortmentOptimization/Main/config.route.js"></script>
+
+    <script src="~/App/AssortmentOptimization/Layout/shell.controller.js"></script>
+    <script src="~/App/AssortmentOptimization/Home/home.controller.js"></script>
+    <script src="~/App/AssortmentOptimization/Main/main.controller.js"></script>
+    <script src="~/App/AssortmentOptimization/Main/AssortmentDiagnostics/assortmentdiagnostics.controller.js"></script>
+    <script src="~/App/AssortmentOptimization/Main/CDT/cdt.controller.js"></script>
+    <script src="~/App/AssortmentOptimization/Main/Loyalty/loyalty.controller.js"></script>
+    <script src="~/App/AssortmentOptimization/Main/StoreClustering/storeclustering.controller.js"></script>
+    <script src="~/App/AssortmentOptimization/Main/Substitution/substitution.controller.js"></script>
+    <script src="~/App/AssortmentOptimization/Home/modal.controller.js"></script>
+    @*<script src="~/App/AssortmentOptimization/Main/Capabilities/capabilities.controller.js"></script>*@
+
+    <script src="~/App/AssortmentOptimization/Services/user.service.js"></script>
+    <script src="~/App/AssortmentOptimization/Services/logger.service.js"></script>
+    <script src="~/App/AssortmentOptimization/Services/assortmentoptimization.service.js"></script>
+    <script src="~/App/AssortmentOptimization/Services/interceptor.factory.js"></script>
+
+	<script src="~/App/AssortmentOptimization/widgets/file-upload.directive.js"></script>s
+    <script>
+        var inputFileData = {
+            "diagItemFile": "",
+            "clusteringStoresFile": "",
+            "loyaltyItemFile": "",
+            "loyaltyStoreClusterFile": "",
+            "subItemFile": ""
+        };
+
+        //Base64 Encode File
+        function arrayBufferToBase64(buffer) {
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return window.btoa(binary);
+        }
+
+        //Read in a file
+        function readFile(file, callback) {
+            var reader = new FileReader();
+            reader.onload = callback
+            reader.readAsArrayBuffer(file);
+        }
+
+        function loadFile(elemId, fileId) {
+            var selectedFile = document.getElementById(elemId).files[0];
+            readFile(selectedFile, function (e) {
+                inputFileData[fileId] = arrayBufferToBase64(e.target.result);
+            });
+        }
+
+    </script>
+
+    <!-- in
+    ject:tem
+    plates:js
+    @*<script src="~/App/AssortmentOptimization/templates.js"></script>*@
+    <!-- endinject -->
+    <!-- endb
+    uild -->
+</body>
+</html>

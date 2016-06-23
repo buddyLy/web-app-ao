@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - ./src/Web/App/AssortmentOptimization/Services/assortmentoptimization.service.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>./src/Web/App/AssortmentOptimization/Services/assortmentoptimization.service.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">71.21</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">427</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">44.90</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.56</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">(function () {
+	&#039;use strict&#039;;
+
+	angular
+		.module(&#039;AssortmentOptimization.Services&#039;)
+		.service(&#039;AssortmentoptimizationService&#039;, AssortmentoptimizationService);
+
+	AssortmentoptimizationService.$inject = [&#039;$http&#039;, &#039;$q&#039;];
+
+	function AssortmentoptimizationService($http, $q) {
+		var service = {
+			createYulesQ: createYulesQ,
+			getAssortments: getAssortments,
+			addAssortment: addAssortment,
+			dlTemplate: dlTemplate,
+			saveTemplate: saveTemplate,
+			isAvailToDownload: isAvailToDownload,
+			getCapabilityFiles: getCapabilityFiles,
+			createLoyalty: createLoyalty,
+			createStoreClustering: createStoreClustering,
+			createSubstitution: createSubstitution,
+			downloadCapabilityFiles: downloadCapabilityFiles,
+			getLoyalty: getLoyalty,
+			getDecisionTree: getDecisionTree,
+			getSubstitution: getSubstitution,
+		    getStoreClustering: getStoreClustering,
+		    getDiagnostics: getDiagnostics,
+		    helloWorld: helloWorld
+		};
+
+		return service;
+
+		/*
+ 			Download the available files for the capabilities
+		 */
+		function getCapabilityFiles(capabilityId, fileType){
+			var serviceApi = &#039;./api/file?capabilityId=&#039;+capabilityId+&#039;&amp;fileType=&#039;+fileType;
+			console.log(&quot;calling:&quot; + serviceApi);
+			return $http.get(serviceApi).then(function (response) {
+			    console.log(response);
+			    return response;
+			});
+		}
+
+		/*
+ 			Checks whether the output files are ready for each cababilities
+		*/
+		function isAvailToDownload(capability, projectId){
+			var serviceApi;
+			if (capability === &quot;diagnostics&quot;){
+				serviceApi = &#039;./api/diagnostic/&#039; + projectId;
+				console.log(&quot;calling: &quot; + serviceApi);
+			}
+			else if (capability === &quot;cdt&quot;){
+				serviceApi = &#039;./api/decisiontree/&#039; + projectId;
+				console.log(&quot;calling: &quot; + serviceApi);
+			}
+			else if (capability === &quot;storeclustering&quot;){
+				serviceApi = &#039;./api/storeclustering/&#039; + projectId;
+				console.log(&quot;calling: &quot; + serviceApi);
+			}
+			else if (capability === &quot;loyalty&quot;){
+				serviceApi = &#039;./api/loyalty/&#039; + projectId;
+				console.log(&quot;calling: &quot; + serviceApi);
+			}
+			else if (capability === &quot;substitution&quot;){
+				serviceApi = &#039;./api/substitution/&#039; + projectId;
+				console.log(&quot;calling: &quot; + serviceApi);
+			}
+			else{
+				console.log(&quot;Does not recognize capability&quot;);
+				return false;
+			}
+
+			return $http.get(serviceApi).then(function (response){
+				return response;
+			});
+		}
+
+		/*
+			Get all the available assortments
+		*/
+		function getAssortments() {
+			var serviceApi = &#039;./api/assortmentAnalysis/&#039;;
+			return $http.get(serviceApi).then(function (response) {
+				return response.data;
+			}, function (response, status, headers, config) {
+			    // The API response from the server should be returned in a
+			    // normalized format. However, if the request was not handled by the
+			    // server (or what not handles properly - ex. server error), then we
+			    // may have to normalize it on our end, as best we can.
+			    if (!angular.isObject(response.data) || !response.data.message) {
+			        return ($q.reject(&#039;An unknown error occurred.&#039;));
+			    }
+
+			    // Otherwise, use expected error message.
+			    return ($q.reject(response.data.message));
+			});
+		}
+
+		function dlTemplate(templateName) {
+			console.log(&quot;calling service to get template&quot;);
+			var myTemplate = templateName;
+			var templateApi = &#039;./api/Template?templateName=&#039;+myTemplate;
+			return $http.get(templateApi).then(function (response) {
+			    console.log(response);
+			    return response;
+			}, function (response, status, headers, config) {
+			    // The API response from the server should be returned in a
+			    // normalized format. However, if the request was not handled by the
+			    // server (or what not handles properly - ex. server error), then we
+			    // may have to normalize it on our end, as best we can.
+			    if (!angular.isObject(response.data) || !response.data.message) {
+			        return ($q.reject(&#039;An unknown error occurred.&#039;));
+			    }
+
+			    // Otherwise, use expected error message.
+			    return ($q.reject(response.data.message));
+			});
+		}
+
+		/*
+		 * save to a file a chunk of text
+		 */
+		function saveTemplate(mydata, templateName){
+			var blob = new Blob([mydata], { type: &quot;text/plain;charset=utf-8&quot; });
+			var downloadLink = document.createElement(&quot;a&quot;);
+			downloadLink.download = templateName;
+			downloadLink.innerHTML = &quot;Download File&quot;;
+			if (window.URL !== null) {   //for chrome
+				downloadLink.href = window.URL.createObjectURL(blob);
+			}
+			else {  //firefox must add link to the DOM
+				downloadLink.href = window.URL.createObjectURL(blob);
+				downloadLink.onclick = destroyClickedElement;
+				downloadLink.style.display = &quot;none&quot;;
+				document.body.appendChild(downloadLink);
+			}
+			downloadLink.click();
+		}
+
+		function addAssortment(assortment) {
+			var serviceApi = &#039;./api/assortmentAnalysis&#039;;
+			console.log(&quot;Calling post with these info: &quot; + assortment.assortname+&quot;:&quot;+assortment.departmentnumber+&quot;:&quot;+assortment.rollupid);
+			var assortrequest = {
+				method: &#039;POST&#039;,
+				url: serviceApi,
+				data: {
+					Name: assortment.assortname,
+					Department: assortment.departmentnumber,
+					RollUpTypeCode: assortment.rollupid,
+					ItemList: assortment.fileData
+				}
+			};
+
+			return $http(assortrequest).then(function (response) {
+					return response;
+			}, function (response, status, headers, config) {
+			    // The API response from the server should be returned in a
+			    // normalized format. However, if the request was not handled by the
+			    // server (or what not handles properly - ex. server error), then we
+			    // may have to normalize it on our end, as best we can.
+			    if (!angular.isObject(response.data) || !response.data.message) {
+			        return ($q.reject(&#039;An unknown error occurred.&#039;));
+			    }
+
+			    // Otherwise, use expected error message.
+			    return ($q.reject(response.data.message));
+			});
+		}
+
+		function createYulesQ(cdt) {
+			console.log(&quot;Calling service to create YulesQ&quot;);
+			var cdtRequest = {
+			    method: &#039;POST&#039;,
+			    url: &#039;./api/decisiontree/&#039; + cdt.assortmentId,
+			    data: {
+			        AssortmentId: cdt.assortmentId
+			    }
+			};
+
+			return $http(cdtRequest).then(function (response) {
+			    return response;
+			}, function (response, status, headers, config) {
+			    // The API response from the server should be returned in a
+			    // normalized format. However, if the request was not handled by the
+			    // server (or what not handles properly - ex. server error), then we
+			    // may have to normalize it on our end, as best we can.
+			    if (!angular.isObject(response.data) || !response.data.message) {
+			        return ($q.reject(&#039;An unknown error occurred.&#039;));
+			    }
+
+			    // Otherwise, use expected error message.
+			    return ($q.reject(response.data.message));
+			});
+		}
+
+		function getDecisionTree(assortmentId) {
+		    console.log(&quot;Calling service to get loyalty&quot;);
+		    var serviceApi = &#039;./api/decisiontree/&#039; + assortmentId;
+		    return $http.get(serviceApi).then(function (response) {
+		        return response;
+		    }, function (response, status, headers, config) {
+		        // The API response from the server should be returned in a
+		        // normalized format. However, if the request was not handled by the
+		        // server (or what not handles properly - ex. server error), then we
+		        // may have to normalize it on our end, as best we can.
+		        if (!angular.isObject(response.data) || !response.data.message) {
+		            return ($q.reject(&#039;An unknown error occurred.&#039;));
+		        }
+
+		        // Otherwise, use expected error message.
+		        return ($q.reject(response.data.message));
+		    });
+		}
+
+
+		function getDiagnostics(assortmentId) {
+		    console.log(&quot;Calling service to get diagnostis&quot;);
+		    var serviceApi = &#039;./api/diagnostic/&#039; + assortmentId;
+		    return $http.get(serviceApi).then(function (response) {
+		        return response;
+		    }, function (response, status, headers, config) {
+		        // The API response from the server should be returned in a
+		        // normalized format. However, if the request was not handled by the
+		        // server (or what not handles properly - ex. server error), then we
+		        // may have to normalize it on our end, as best we can.
+		        if (!angular.isObject(response.data) || !response.data.message) {
+		            return ($q.reject(&#039;An unknown error occurred.&#039;));
+		        }
+
+		        // Otherwise, use expected error message.
+		        return ($q.reject(response.data.message));
+		    });
+		}
+
+		function createLoyalty(loyalty) {
+		    console.log(&quot;Calling service to create loyalty&quot;);
+		    var serviceApi = &#039;./api/loyalty/&#039; + loyalty.assortmentId;
+		    var loyaltyRequest = {
+		        method: &#039;POST&#039;,
+		        url: serviceApi,
+		        data: {
+                    AssortmentId: loyalty.assortmentId,
+		            LoyaltyLevel: loyalty.loyaltyLevel,
+		            UseClustering: loyalty.useClustering,
+		            ItemList: loyalty.itemList,
+		            StoreClustering: loyalty.storeClustering
+		        }
+		    };
+
+		    return $http(loyaltyRequest).then(function (response) {
+		        return response;
+		    }, function (response, status, headers, config) {
+		        // The API response from the server should be returned in a
+		        // normalized format. However, if the request was not handled by the
+		        // server (or what not handles properly - ex. server error), then we
+		        // may have to normalize it on our end, as best we can.
+		        if (!angular.isObject(response.data) || !response.data.message) {
+		            return ($q.reject(&#039;An unknown error occurred.&#039;));
+		        }
+
+		        // Otherwise, use expected error message.
+		        return ($q.reject(response.data.message));
+		    });
+		}
+
+		function getLoyalty(assortmentId) {
+		    console.log(&quot;Calling service to get loyalty&quot;);
+		    var serviceApi = &#039;./api/loyalty/&#039; + assortmentId;
+		    return $http.get(serviceApi).then(function (response) {
+		        return response;
+		    }, function (response, status, headers, config) {
+		        // The API response from the server should be returned in a
+		        // normalized format. However, if the request was not handled by the
+		        // server (or what not handles properly - ex. server error), then we
+		        // may have to normalize it on our end, as best we can.
+		        if (!angular.isObject(response.data) || !response.data.message) {
+		            return ($q.reject(&#039;An unknown error occurred.&#039;));
+		        }
+
+		        // Otherwise, use expected error message.
+		        return ($q.reject(response.data.message));
+		    });
+		}
+
+		function createStoreClustering(cluster) {
+			console.log(&quot;Calling service to create store clustering&quot;);
+			var serviceApi = &#039;./api/storeclustering/&#039; + cluster.assortmentId;
+			var clusteringRequest = {
+			    method: &#039;POST&#039;,
+			    url: serviceApi,
+			    data: {
+			        AssortmentId: cluster.assortmentId,
+			        StoreList: cluster.storeList
+			    }
+			};
+
+			return $http(clusteringRequest).then(function (response) {
+			    return response;
+			}, function (response, status, headers, config) {
+			    // The API response from the server should be returned in a
+			    // normalized format. However, if the request was not handled by the
+			    // server (or what not handles properly - ex. server error), then we
+			    // may have to normalize it on our end, as best we can.
+			    if (!angular.isObject(response.data) || !response.data.message) {
+			        return ($q.reject(&#039;An unknown error occurred.&#039;));
+			    }
+
+			    // Otherwise, use expected error message.
+			    return ($q.reject(response.data.message));
+			});
+		}
+
+		function getStoreClustering(assortmentId) {
+		    console.log(&quot;Calling service to get store clustering&quot;);
+		    var serviceApi = &#039;./api/storeclustering/&#039; + assortmentId;
+		    return $http.get(serviceApi).then(function (response) {
+		        return response;
+		    }, function (response, status, headers, config) {
+		        // The API response from the server should be returned in a
+		        // normalized format. However, if the request was not handled by the
+		        // server (or what not handles properly - ex. server error), then we
+		        // may have to normalize it on our end, as best we can.
+		        if (!angular.isObject(response.data) || !response.data.message) {
+		            return ($q.reject(&#039;An unknown error occurred.&#039;));
+		        }
+
+		        // Otherwise, use expected error message.
+		        return ($q.reject(response.data.message));
+		    });
+		}
+
+		function createSubstitution(sub) {
+			console.log(&quot;Calling service to create substitution&quot;);
+			var serviceApi = &#039;./api/substitution/&#039; + sub.assortmentId;
+			var subRequest = {
+			    method: &#039;POST&#039;,
+			    url: serviceApi,
+			    data: {
+			        AssortmentId: sub.assortmentId,
+			        ItemList: sub.itemList
+			    }
+			};
+
+			return $http(subRequest).then(function (response) {
+			    return response;
+			}, function (response, status, headers, config) {
+			    // The API response from the server should be returned in a
+			    // normalized format. However, if the request was not handled by the
+			    // server (or what not handles properly - ex. server error), then we
+			    // may have to normalize it on our end, as best we can.
+			    if (!angular.isObject(response.data) || !response.data.message) {
+			        return ($q.reject(&#039;An unknown error occurred.&#039;));
+			    }
+
+			    // Otherwise, use expected error message.
+			    return ($q.reject(response.data.message));
+			});
+		}
+
+		function getSubstitution(assortmentId) {
+		    console.log(&quot;Calling service to get loyalty&quot;);
+		    var serviceApi = &#039;./api/substitution/&#039; + assortmentId;
+		    return $http.get(serviceApi).then(function (response) {
+		        return response;
+		    }, function (response, status, headers, config) {
+		        // The API response from the server should be returned in a
+		        // normalized format. However, if the request was not handled by the
+		        // server (or what not handles properly - ex. server error), then we
+		        // may have to normalize it on our end, as best we can.
+		        if (!angular.isObject(response.data) || !response.data.message) {
+		            return ($q.reject(&#039;An unknown error occurred.&#039;));
+		        }
+
+		        // Otherwise, use expected error message.
+		        return ($q.reject(response.data.message));
+		    });
+		}
+
+		function downloadCapabilityFiles(capabilityId, fileType, fileName){
+            getCapabilityFiles(capabilityId, fileType).then(function (response) {
+                var rc = response.status;
+                if (rc === 200 || rc === 201){
+                    var mydata = response.data;
+                    var blob = new Blob([mydata], { type: &quot;text/plain;charset=utf-8&quot; });
+
+                    var downloadLink = document.createElement(&quot;a&quot;);
+                    downloadLink.download = fileName;
+                    downloadLink.innerHTML = &quot;Download File&quot;;
+                    if (window.URL !== null) {   //for chrome
+                        downloadLink.href = window.URL.createObjectURL(blob);
+                    }
+                    else {  //firefox must add link to the DOM
+                        downloadLink.href = window.URL.createObjectURL(blob);
+                        downloadLink.onclick = destroyClickedElement;
+                        downloadLink.style.display = &quot;none&quot;;
+                        document.body.appendChild(downloadLink);
+                    }
+                    downloadLink.click();
+                }else{
+                    vm.ErrorTextAlert = &quot;Service return error: &quot; + rc;
+                    vm.isDisabled = true;
+                    vm.showErrorAlert = true;
+                }
+            });
+
+		}
+
+		function helloWorld() {
+		    return &quot;Hello World&quot;;
+		}
+
+		function handleError(response, status, headers, config) {
+			// The API response from the server should be returned in a
+			// normalized format. However, if the request was not handled by the
+			// server (or what not handles properly - ex. server error), then we
+			// may have to normalize it on our end, as best we can.
+			if (!angular.isObject(response.data) || !response.data.message) {
+				return ($q.reject(&#039;An unknown error occurred.&#039;));
+			}
+
+			// Otherwise, use expected error message.
+			return ($q.reject(response.data.message));
+		}
+	}
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

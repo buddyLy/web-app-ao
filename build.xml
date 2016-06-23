@@ -1,0 +1,419 @@
+<project name="AssortmentOptimizationSystem" default="deploy" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+    AssortmentOptimizationSystem
+  </description>
+
+  <!-- set global properties for this build -->
+  <property name="project" value="AssortmentOptimizationSystem"/>
+  <property name="docname" value="AssortmentOptimizationSystem API"/>
+  <property name="nunit.exe" value="C:\Program Files (x86)\NUnit 2.6\bin\nunit-console.exe"/>
+  <property name="coverage.exe" value="C:\toolbox\dotnet\OpenCover\OpenCover.Console.exe"/>
+  <property name="msbuild.exe" value="C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe" />
+  <property name="nuget.exe" value="C:\Toolbox\NuGet\NuGet.exe"/>
+  <property name="solution" value="./AssortmentOptimizationSystem.sln"/>
+  <property name="SandcastleBuilderConsole.exe" value="C:\Program Files\EWSoftware\Sandcastle Help File Builder\SandcastleBuilderConsole.exe"/>
+  <property name="dist" location="dist"/>
+  <property name="localtestresults" location="TestResults"/>
+  <property name="docs" location="docs"/>
+  <property name="reports" location="reports"/>
+  <property environment="env" />
+  <property name="publish.lab.location1" location="\\labhonts2024a.lab.wal-mart.com\AssortmentOptimization"/>
+  <property name="publish.lab.location2" location="\\labhonts2024b.lab.wal-mart.com\AssortmentOptimization"/>
+  <property name="publish.lab.location3" location="\\labhonts2024a.lab.wal-mart.com\AssortmentOptimization_QA"/>
+  <property name="publish.lab.location4" location="\\labhonts2024b.lab.wal-mart.com\AssortmentOptimization_QA"/>
+  <property name="doc_publish.location" value="\\archivafiles.wal-mart.com\shares\archiva_repos\docs\AssortmentOptimizationSystem"/>
+  <property name="release.version" value="${version.number}"/>
+  <property name="release.status" value="release"/>
+  <property name="module" value="AssortmentOptimizationSystem"/>
+  <property name="build.proj" location="src\Web\Web.csproj"/>
+  <property name="aspnet_regiis" value="C:\windows\Microsoft.NET\Framework\v2.0.50727\aspnet_regiis.exe"/>
+  <property name="deploy.fileset" value="./src/Web/" />
+  <property name="deploy.filelab" value="AssortmentOptimizationSystem.LAB.zip" />
+  <property name="doc.shfb" value="AssortmentOptimizationSystem.shfb" />
+
+  <!-- INIT -->
+  <target name="init" depends="clean">
+    <!-- Create a time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${dist}"/>
+    <mkdir dir="${reports}"/>
+  </target>
+
+  <!-- COMPILE -->
+  <target name="compile" depends="init,restore" description="Compile the source" >
+    <exec executable="${msbuild.exe}" resultproperty="compile.return.code">
+      <arg value="${solution}"/>
+      <arg value="/property:Configuration=Release"/>
+    </exec>
+    <condition property="problem.with.compile">
+      <not>
+        <equals arg1="${compile.return.code}" arg2="0" />
+      </not>
+    </condition>
+    <fail if="problem.with.compile" message="Failed Compile" />
+  </target>
+
+  <!-- Create-Deploy (setup the deployment structure -->
+  <target name="create-deploy" depends="coverage" description="Copy all of the needed project files to the dist folder">
+    <echo message="Create the deployment ${dist}"/>
+    <condition property="publish.location" value="${publish.dev.location}" else="${publish.lab.location}">
+      <and>
+        <equals arg1="${publish.type}" arg2="test" />
+      </and>
+    </condition>
+    <copy todir="${dist}">
+      <fileset dir="${deploy.fileset}">
+        <include name="*.ico"/>
+        <include name="*.png"/>
+        <include name="bin/*"/>
+        <include name="Bin/*"/>
+        <include name="Content/**"/>
+        <include name="Scripts/**"/>
+        <include name="Views/**"/>
+        <include name="**/*.aspx"/>
+        <include name="**/*.ascx"/>
+        <include name="**/*.asax"/>
+        <include name="**/*.htm"/>
+        <include name="**/*.html"/>
+        <include name="**/*.js"/>
+        <include name="**/*.css"/>
+        <include name="**/*.config"/>
+        <include name="**/Templates/**"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- PACKAGE -->
+  <!-- Run the zip command that will create our deployment package -->
+  <target name="package" depends="encrypt-web" description="Run the zip command that will create the deployment package">
+    <echo message="Copying correct config file for lab environment..." />
+    <copy file="${dist}/Web.LAB.config" tofile="${dist}/Web.config" overwrite="true" />
+    <echo message="Run zip to package the deployment"/>
+    <zip destfile="${deploy.filelab}"
+			 basedir="${dist}"
+			 includes="**"
+			 filesonly="false" />
+  </target>
+
+  <!-- Doc -->
+  <!-- Create the doc with sandcastle -->
+  <target name="doc" depends="package" description="Create the sandcastle doc">
+    <echo message="Creating doc with sandcastle"/>
+    <exec executable="${SandcastleBuilderConsole.exe}"  resultproperty="doc.return.code">
+      <arg value="${doc.shfb}"/>
+    </exec>
+    <condition property="problem.with.doc">
+      <not>
+        <equals arg1="${doc.return.code}" arg2="0" />
+      </not>
+    </condition>
+    <fail if="problem.with.doc" message="Failed to Create Doc" />
+  </target>
+
+  <!-- DEPLOY_DOCS -->
+  <target name="deploy_docs" depends="doc" description="Deploy the doc to archiva">
+    <echo message="Publishing doc to ${doc_publish.location}" />
+    <mkdir dir="${doc_publish.location}" />
+    <delete includeemptydirs="true">
+      <fileset dir="${doc_publish.location}" includes="**\*" />
+    </delete>
+    <copy todir="${doc_publish.location}">
+      <fileset dir="${docs}">
+        <include name="**\*" />
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- DEPLOY -->
+  <target name="deploy" depends="package" description="Deploy the code to dev">
+    <echo message="Publishing to ${publish.lab.location1}"/>
+    <delete includeemptydirs="true">
+      <fileset dir="${publish.lab.location1}" includes="**\*"/>
+    </delete>
+    <unzip dest="${publish.lab.location1}">
+      <fileset dir=".">
+        <include name="${deploy.filelab}"/>
+      </fileset>
+    </unzip>
+    <echo message="Publishing to ${publish.lab.location2}"/>
+    <delete includeemptydirs="true">
+      <fileset dir="${publish.lab.location2}" includes="**\*"/>
+    </delete>
+    <unzip dest="${publish.lab.location2}">
+      <fileset dir=".">
+        <include name="${deploy.filelab}"/>
+      </fileset>
+    </unzip>
+    <echo message="Publishing to ${publish.lab.location3}"/>
+        <delete includeemptydirs="true">
+          <fileset dir="${publish.lab.location3}" includes="**\*"/>
+        </delete>
+        <unzip dest="${publish.lab.location3}">
+          <fileset dir=".">
+            <include name="${deploy.filelab}"/>
+          </fileset>
+    </unzip>
+    <echo message="Publishing to ${publish.lab.location4}"/>
+        <delete includeemptydirs="true">
+          <fileset dir="${publish.lab.location4}" includes="**\*"/>
+        </delete>
+        <unzip dest="${publish.lab.location4}">
+          <fileset dir=".">
+            <include name="${deploy.filelab}"/>
+          </fileset>
+    </unzip>
+  </target>
+
+  <!-- TEST (to run unit tests) -->
+  <target name="test" depends="compile"
+		  description="Compile the source and run tests" >
+    <echo message="Starting Unit Tests"/>
+    <!-- Test the code -->
+    <exec executable="${nunit.exe}" resultproperty="test.return.code">
+      <arg value="/xml:${reports}/unittestresults.xml"/>
+      <arg value="src/UnitTests/bin/Release/Walmart.Assortment.AssortmentOptimizationSystem.UnitTests.dll"/>
+    </exec>
+    <condition property="problem.with.test">
+      <not>
+        <equals arg1="${test.return.code}" arg2="0" />
+      </not>
+    </condition>
+    <fail if="problem.with.test" message="Failed Unit Tests" />
+  </target>
+
+  <target name="coverage" depends="test"
+		  description="Determine the code coverage metric" >
+    <echo message="Calculating Code Coverage..."/>
+    <exec executable="${coverage.exe}" resultproperty="coverage.return.code">
+      <arg value="-target:${nunit.exe}"/>
+      <arg value="-targetargs:src/UnitTests/bin/Release/Walmart.Assortment.AssortmentOptimizationSystem.UnitTests.dll /noshadow /nologo"/>
+      <arg value="-filter:+[Walmart.Assortment*]* -[*]*.UnitTests.* -[*]*.IntegrationTests.*"/>
+      <arg value="-excludebyattribute:System.CodeDom.Compiler.GeneratedCodeAttribute"/>
+      <arg value="-output:${reports}/coveragereport.xml" />
+      <arg value="-register:user"/>
+    </exec>
+    <condition property="problem.with.coverage">
+      <not>
+        <equals arg1="${coverage.return.code}" arg2="0" />
+      </not>
+    </condition>
+    <fail if="problem.with.coverage" message="Coverage calculation failed..." />
+  </target>
+
+  <!-- Restore Nuget depends -->
+  <target name="restore">
+    <echo message="Restoring NuGet packages..."/>
+    <exec executable="${nuget.exe}" resultproperty="restore.return.code">
+      <arg value="restore"/>
+      <arg value="${solution}"/>
+    </exec>
+    <condition property="problem.with.restore">
+      <not>
+        <equals arg1="${restore.return.code}" arg2="0" />
+      </not>
+    </condition>
+    <fail if="problem.with.restore" message="Failed Restore" />
+  </target>
+
+  <!-- CLEAN UP -->
+  <target name="clean" description="Clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete includeemptydirs="true">
+      <fileset dir="." includes="**\bin\**" excludes="**\**.vshost.exe" />
+      <fileset dir="." includes="**\obj\**" />
+    </delete>
+    <delete dir="${dist}"/>
+    <delete dir="${docs}"/>
+    <delete dir="${reports}"/>
+    <delete>
+      <fileset dir="." includes="*.zip"/>
+      <fileset dir="." includes="*.cache"/>
+    </delete>
+  </target>
+
+  <!-- Encryption -->
+  <target name="encrypt-web" depends="create-deploy">
+    <!--
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pz"/>
+		<arg value="RetailLink"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pi"/>
+		<arg value="RetailLink"/>
+		<arg value="${lib}\RetailLink.xml"/>
+	</exec>
+
+	-->
+    <!-- Encrypt Production -->
+    <!--
+	<copy file="${dist}/Web.PROD.config" tofile="${dist}/Web.config" overwrite="true" />
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="appSettings"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="connectionStrings"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="system.web/machineKey"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="system.web/identity"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<copy file="${dist}/Web.config" tofile="${dist}/Web.PROD.config" overwrite="true" />
+	
+	-->
+    <!-- Encrypt Cert -->
+    <!--
+	<copy file="${dist}/Web.CERT.config" tofile="${dist}/Web.config" overwrite="true" />
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="appSettings"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="connectionStrings"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="system.web/machineKey"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="system.web/identity"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<copy file="${dist}/Web.config" tofile="${dist}/Web.CERT.config" overwrite="true" />
+
+	-->
+    <!-- Encrypt QA -->
+    <!--
+	<copy file="${dist}/Web.QA.config" tofile="${dist}/Web.config" overwrite="true" />
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="appSettings"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="connectionStrings"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="system.web/machineKey"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="system.web/identity"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<copy file="${dist}/Web.config" tofile="${dist}/Web.QA.config" overwrite="true" />
+	
+	-->
+    <!-- Encrypt DEV -->
+    <!--
+	<copy file="${dist}/Web.DEV.config" tofile="${dist}/Web.config" overwrite="true" />
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="appSettings"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="connectionStrings"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="system.web/machineKey"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="system.web/identity"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<copy file="${dist}/Web.config" tofile="${dist}/Web.DEV.config" overwrite="true" />
+	
+	-->
+    <!-- Encrypt Lab -->
+    <!--
+	<copy file="${dist}/Web.LAB.config" tofile="${dist}/Web.config" overwrite="true" />
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="appSettings"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="connectionStrings"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="system.web/machineKey"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<exec executable="${aspnet_regiis}">
+		<arg value="-pef"/>
+		<arg value="system.web/identity"/>
+		<arg value="${dist}"/>
+		<arg value="-prov"/>
+		<arg value="CustomProvider"/>
+	</exec>
+	<copy file="${dist}/Web.config" tofile="${dist}/Web.LAB.config" overwrite="true" />-->
+  </target>
+
+</project>

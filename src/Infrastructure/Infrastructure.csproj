@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A86D49F6-3431-4A3D-84D3-45E4138CD638}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Walmart.Assortment.AssortmentOptimizationSystem.Infrastructure</RootNamespace>
+    <AssemblyName>Walmart.Assortment.AssortmentOptimizationSystem.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>5</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Apache.NMS">
+      <HintPath>..\..\3rdPartyAssemblies\Apache.NMS.1.7.0\lib\net40\Apache.NMS.dll</HintPath>
+    </Reference>
+    <Reference Include="Apache.NMS.ActiveMQ">
+      <HintPath>..\..\3rdPartyAssemblies\Apache.NMS.ActiveMQ.1.7.0\lib\net40\Apache.NMS.ActiveMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\..\packages\FluentNHibernate.2.0.1.0\lib\net40\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.4.0.3.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess">
+      <HintPath>..\..\packages\odp.net.managed.121.1.2\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\..\packages\structuremap.3.1.5.154\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Net4">
+      <HintPath>..\..\packages\structuremap.3.1.5.154\lib\net40\StructureMap.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataAccess\Impl\Repository.cs" />
+    <Compile Include="DataAccess\Mappings\AssortmentAnalysisMap.cs" />
+    <Compile Include="DataAccess\Mappings\CapabilityFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\CapabilityMap.cs" />
+    <Compile Include="DataAccess\Mappings\CapabilityParameterMap.cs" />
+    <Compile Include="DataAccess\Mappings\CapabilityParameterValueMap.cs" />
+    <Compile Include="DataAccess\Mappings\CapabilityTypeLocalizationMap.cs" />
+    <Compile Include="DataAccess\Mappings\CapabilityTypeMap.cs" />
+    <Compile Include="DataAccess\Mappings\CdtAssortmentDescriptionFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\CdtItemMetricsFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\CdtYulesQMatrixFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\DecisionTreeMap.cs" />
+    <Compile Include="DataAccess\Mappings\DiagnosticItemListFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\DiagnosticMap.cs" />
+    <Compile Include="DataAccess\Mappings\DiagnosticResultsFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\FileTypeLocalizationMap.cs" />
+    <Compile Include="DataAccess\Mappings\FileTypeMap.cs" />
+    <Compile Include="DataAccess\Mappings\LoyaltyItemListFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\LoyaltyMetricsFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\LoyaltyReportMap.cs" />
+    <Compile Include="DataAccess\Mappings\LoyaltyStoreClusteringFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\RollupLevelLocalizationMap.cs" />
+    <Compile Include="DataAccess\Mappings\RollupLevelMap.cs" />
+    <Compile Include="DataAccess\Mappings\StatusLocalizationMap.cs" />
+    <Compile Include="DataAccess\Mappings\StatusMap.cs" />
+    <Compile Include="DataAccess\Mappings\StoreClusteringMap.cs" />
+    <Compile Include="DataAccess\Mappings\StoreClusteringModelSummaryFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\StoreClusteringReclassifedStoresMap.cs" />
+    <Compile Include="DataAccess\Mappings\StoreClusteringStoresFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\SubstitutionItemListFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\SubstitutionMap.cs" />
+    <Compile Include="DataAccess\Mappings\SubstitutionMetricsFileMap.cs" />
+    <Compile Include="DataAccess\Mappings\TrackedEntityMap.cs" />
+    <Compile Include="DataAccess\NHibernateHelper.cs" />
+    <Compile Include="DependencyResolution\IoC.cs" />
+    <Compile Include="DependencyResolution\MessagingRegistry.cs" />
+    <Compile Include="DependencyResolution\NHibernateRegistry.cs" />
+    <Compile Include="Messaging\Impl\MessageService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{aaa4e49d-adb5-4b55-a703-cc2320ee3eb2}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
